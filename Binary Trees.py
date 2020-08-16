@@ -1,5 +1,9 @@
 #! /usr/bin/python3
 
+"""
+Task: Create a binary tree and traverse it in all orders.
+"""
+
 class Node(object):
 
     def __init__(self, value):
