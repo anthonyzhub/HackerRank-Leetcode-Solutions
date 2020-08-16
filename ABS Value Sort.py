@@ -1,5 +1,16 @@
 #! /usr/bin/python3
 
+"""
+
+Task: Sort a list in ascending order by the element's absolute value. If two or more elements share the same absolute value, then sort them with numeric sign included
+
+Ex. 
+
+Input: [0, -9, 3, 3, -1, -1, 0]
+Output: [0, 0, -1, -1, 3, 3, -9]
+
+"""
+
 from collections import Counter
 
 def bubblesort(arr):
