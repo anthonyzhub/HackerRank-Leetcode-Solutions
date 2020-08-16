@@ -1,6 +1,13 @@
 #! /bin/python3
 
-# HackerRank's Company Logo question: https://www.hackerrank.com/challenges/most-commons/problem
+"""
+Title: Company Logo
+Source: HackerRank
+Link: https://www.hackerrank.com/challenges/most-commons/problem
+
+Task: Accept a string and return a 3 letter string. The returned string is composed of the most common letters from the input. If 2 or more letters share the same
+      number of occurrence, then sort them in alphabetical order.
+"""
 
 from collections import Counter
 
