@@ -5,7 +5,9 @@ import os
 import random
 import re
 import sys
-from datetime import datetime
+from datetime import datetime # <= Import library
+
+# Link: https://www.hackerrank.com/challenges/python-time-delta/problem
 
 # Complete the time_delta function below.
 def time_delta(t1, t2):
