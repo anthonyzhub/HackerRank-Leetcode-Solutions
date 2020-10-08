@@ -7,7 +7,7 @@ if __name__ == '__main__':
     nm = input().split()
     n = int(nm[0])
     m = int(nm[1])
-
+	
 	# Create a list
     arr = []
 
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     for row, elem in enumerate(arr):
 
         # {Row: list}
-		# Accept index and kth number inside the list
+	# Accept index and kth number inside the list
         attributeDict[row] = elem[k]
 
     # Sort dictionary by values, instead of key
