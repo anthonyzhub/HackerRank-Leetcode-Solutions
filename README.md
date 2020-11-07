@@ -1,7 +1,7 @@
 # HackerRank-Solutions
 
-Whether you're a student or an experienced professional, it is recommended to practice your technical skills before an interview. HackerRank and Leetcode has various technical questions for everyone to prepare for a job interview. For me, I like to save the question and solution after successfully completing a problem. You never know if a problem may resurface with a few tweaks or different conditions.
+Whether you're a student or an experienced professional, it is recommended to practice your technical skills before an interview. HackerRank and Leetcode both have technical questions for everyone to prepare for a job interview. For me, I like to save questions and its solution after successfully solving them. You never know if a problem may resurface in a job interview with minor differences.
 
-In this repository, I uploaded my solutions to previously completed coding questions. Each file is named after the problem with a detailed explaination of what is expected. Feel free to review my solutions and, if you are lost, read the comments I left behind.
+In this repository, each file is named after the problem and includes the link to the question.
 
 Good luck on your interview!
