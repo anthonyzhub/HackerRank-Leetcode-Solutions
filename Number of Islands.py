@@ -7,11 +7,11 @@ class Solution:
         
         # Iterate grid
         for i in range(len(grid)):
-            for j in range(len(grid[0])): # <= Typed grid[0] because each row shared same length
+            for j in range(len(grid[0])): # <= Typed grid[0] because each row shares same length
                 
                 # Perform depth first search
                 if grid[i][j] == '1':
-                    self.dfs(grid, i, j) # Travel in all possible paths
+                    self.dfs(grid, i, j) # Travel in all possible directions
                     total += 1
                     
         return total
@@ -33,7 +33,7 @@ class Solution:
             return
             
         # Keep record of recent position
-        grid[i][j] = 'V'
+        grid[i][j] = 'V' # 'V' for visited
             
         # Check top side
         self.dfs(grid, i, j + 1)
