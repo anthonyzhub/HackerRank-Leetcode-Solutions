@@ -1,0 +1,25 @@
+# https://leetcode.com/problems/remove-element/submissions/
+
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        
+        # Base cases: If list is empty
+        if len(nums) == 0:
+            return len(nums)
+        
+        # Exit if val is not inside list
+        if val not in nums:
+            return len(nums)
+        
+        # Iterate list
+        for i in sorted(nums):
+            
+            # Exit if i is bigger than val
+            if i > val:
+                break
+                
+            # Remove element if i equals to val
+            if i == val:
+                nums.remove(i)
+                
+        return len(nums)
