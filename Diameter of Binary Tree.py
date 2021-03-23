@@ -55,5 +55,5 @@ class Solution:
         if root.left == None and root.right == None:
             return 0
         
-        # Perform depth form search
+        # Perform depth first search
         return self.dfs(root)
