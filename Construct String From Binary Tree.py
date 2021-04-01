@@ -15,7 +15,7 @@ class Solution:
         
         # If t is NoneType, return empty string
         if t == None:
-            return None
+            return ""
         
         # If neither child exist, return its own value
         if t.left == None and t.right == None:
