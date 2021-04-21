@@ -29,7 +29,7 @@ class Solution(object):
         # Change cell's value
         matrix[xPos][yPos] = -101 # <= A cell's value won't be less than -100
         
-        # Check all directions
+        # Check all directions at least 4 times.
         for _ in range(4):
             
             if direction == "right":
