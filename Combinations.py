@@ -11,7 +11,7 @@ class Solution(object):
         """
         
         # Create a list of numbers ranging from [1, n]
-        # NOTE: [] means inclusive
+        # NOTE: [] means inclusive and xrange() handles larger numbers.
         rangeList = list()
         for i in xrange(1, n + 1):
             rangeList.append(i)
