@@ -31,22 +31,17 @@ class Solution:
             nodesOnLevel = list()
             
             # Iterate queue
-            print()
             for idx in range(len(queue)):
                 
                 # Get current node
-                # currNode = queue[idx]
                 currNode = queue.pop(0)
-                print(currNode.val)
                 
                 # Save currNode's children to nodesOnLevel
                 if currNode.left:
                     nodesOnLevel.append(currNode.left)
-                    print(currNode.left.val)
                     
                 if currNode.right:
                     nodesOnLevel.append(currNode.right)
-                    print(currNode.right.val)
                     
                 # Check if there's a neighboring node
                 if len(queue) > 0:
