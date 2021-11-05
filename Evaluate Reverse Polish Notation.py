@@ -45,6 +45,10 @@ class Solution:
             operator = tokens[firstOperandIdx]
             
             # Get 2 numbers before operator's index
+            """ E.g.
+			Token: [3, 4, +]
+			num1 will be 3 and num2 will be 4.
+			"""
             num1 = tokens[firstOperandIdx - 2]
             num2 = tokens[firstOperandIdx - 1]
             
