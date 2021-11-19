@@ -8,7 +8,7 @@ class Solution:
         if idx < 0:
             return 0
         
-        # If index was previously visited, return its potential robbery
+        # If route was previously visited, return its potential robbery gain
         if idx in memo.keys():
             return memo[idx]
         
@@ -26,6 +26,7 @@ class Solution:
             return max(nums)
         
         # Create a dictionary for memoization
+        # NOTE: It will be used to memorize route and how much money was stolen
         memo = dict()
         
         # Use dynamic programming to solve problem
