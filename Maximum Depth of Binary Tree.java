@@ -1,4 +1,6 @@
-// Link: https://leetcode.com/problems/maximum-depth-of-binary-tree/submissions/
+// Link: https://leetcode.com/problems/maximum-depth-of-binary-tree/
+
+// https://leetcode.com/problems/maximum-depth-of-binary-tree/
 
 /**
  * Definition for a binary tree node.
@@ -20,34 +22,25 @@ class Solution {
     
     public int traverse(TreeNode root, int depth)
     {
-        // If node is empty, exit function
-        if (root == null)
-        {
-            return depth;
-        }
+        // If root is empty, exit function
+        if (root == null) {return depth;}
         
-        // Increment counter
-        depth += 1;
+        // Increment depth
+        depth++;
         
-        // Traverse left and right side
-        int leftSide = 0;
-        int rightSide = 0;
+        // Vist children
+        int leftChildDepth = traverse(root.left, depth);
+        int rightChildDepth = traverse(root.right, depth);
         
-        if (root.left != null)
-        {
-            leftSide = traverse(root.left, depth);
-        }
-        
-        if (root.right != null)
-        {
-            rightSide = traverse(root.right, depth);
-        }
-        
-        // Get maximum depth between the two
-        return Math.max(leftSide, Math.max(rightSide, depth));
+        // Get maximum value between left and right subtree
+        return Math.max(leftChildDepth, rightChildDepth);
     }
     
     public int maxDepth(TreeNode root) {
+        
+        // If root is empty, exit function
+        if (root == null) {return 0;}
+        
         return traverse(root, 0);
     }
 }
