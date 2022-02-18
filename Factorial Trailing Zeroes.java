@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/factorial-trailing-zeroes
 // NOTE: For some reason Java is returning 13! as "1,932,053,504" instead of "6,227,020,800". This is found in other Java programs as well.
-//        The same code converted to Python does give the correct answer! My Python program: https://github.com/anthonyzhub/HackerRank-Leetcode-Solutions/blob/master/Factorial%20Trailing%20Zeroes.py
+//        The same code converted to Python does give the correct answer!
+//        My Python program: https://github.com/anthonyzhub/HackerRank-Leetcode-Solutions/blob/master/Factorial%20Trailing%20Zeroes.py
 
 class Solution {
     
