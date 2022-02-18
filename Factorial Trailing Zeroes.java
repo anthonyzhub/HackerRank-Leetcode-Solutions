@@ -16,12 +16,11 @@ class Solution {
     public int trailingZeroes(int n) {
         
         // Anything below 5! doesn't have a trailing 0
-        // if (n <= 4) {return 0;}
+        if (n <= 4) {return 0;}
         
         // Compute factorial and save answer as a string
         String completeNum = ""+factorial(n);
         char[] charArray = completeNum.toCharArray();
-        // System.out.println(completeNum);
         
         // Traverse string in reverse order
         int numOfZeros = 0;
