@@ -1,4 +1,4 @@
-# https://leetcode.com/problems/validate-binary-search-tree/submissions/
+# https://leetcode.com/problems/validate-binary-search-tree/
 
 # Definition for a binary tree node.
 # class TreeNode:
