@@ -34,6 +34,7 @@ public class Solution {
         ListNode curNode = head;
         
         // Cycle list until "i" reaches "startIdx"
+        // NOTE: 2nd condition is < not <= because startIdx starts at 1
         for (int i=0; i<startIdx; i++) {
             curNode = curNode.next;
         }
