@@ -5,6 +5,7 @@ class Solution {
     public int countPrimes(int n) {
         
         // IMPORTANT: A prime number must be greater than 1 and is only divisible by 1 and itself.
+        // Method is called "Sieve of Eratosthenes"
         
         // Create a boolean array
         boolean[] isNumPrime = new boolean[n];
