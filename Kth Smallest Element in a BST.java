@@ -23,7 +23,7 @@ class Solution {
         // If root is null, exit function
         if (root == null) {return;}
         
-        // If listis already full and root's value is smaller than larget number, replace largest number with root's value
+        // If list is already full and root's value is smaller than larget number, replace largest number with root's value
         if (kElems.size() == k && kElems.get(k-1) > root.val) {
             kElems.remove(k - 1);
         }
