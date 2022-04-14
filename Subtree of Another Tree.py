@@ -11,6 +11,8 @@ class Solution:
     
     def compareTrees(self, root, subRoot):
         
+        # OBJECTIVE: Compare compatability between root and Subroot
+        
         # If both roots are empty, return true
         if root is None and subRoot is None:
             return True
