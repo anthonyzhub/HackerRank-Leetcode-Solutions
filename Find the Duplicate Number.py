@@ -1,6 +1,9 @@
 # https://leetcode.com/problems/find-the-duplicate-number/
 
-# NOTE: Algorithm is based on Floyd's Tortoise and Hare Cycle Detection
+"""
+- Algorithm is based on Floyd's Tortoise and Hare Cycle Detection
+- Time complexity is O(n) while space complexity is O(1)
+"""
 
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
