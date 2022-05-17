@@ -9,10 +9,6 @@ class Solution:
         if n <= 2:
             return [elem for elem in range(n)]
         
-        # If n equals 1, return first and only element in edges
-        if n == 1:
-            return list(edges[0][0])
-        
         # Iterate edges list
         graph = defaultdict(set)
         for pair in edges:
