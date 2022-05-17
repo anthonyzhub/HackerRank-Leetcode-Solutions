@@ -2,29 +2,6 @@
 
 class Solution:
     
-    def recursive(self, graph, root, visited, height):
-        
-        # OBJECTIVE: Visit every child inside dictionary
-        
-        # If child was already visited, exit function
-        if root in visited:
-            return height
-        
-        visited.append(root) # 4, 3, 0, 1, 2
-            
-        # Iterate children
-        maxHeight = 0
-        for child in graph[root]:
-
-            # If child was already visited, skip it
-            if child in visited:
-                continue
-            
-            # Check child's children
-            maxHeight = max(self.recursive(graph, child, visited, height + 1), height)
-            
-        return maxHeight
-    
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
         
         # If n is less than or equal to 2, return elements from the list.
