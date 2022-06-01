@@ -19,6 +19,12 @@
 class Solution {
     public int countNodes(TreeNode root) {
         
+        /*
+            OBJECTIVE: Count the number of nodes there are in the binary tree with a time complexity less than O(n).
+            NOTE: I answered the question by using BFS. I used BFS to collect all nodes on the same level.
+                The time complexity is O(n) where n = number of nodes inside the tree.
+        */
+        
         // If root is null, exit function
         if (root == null) {return 0;}
         
