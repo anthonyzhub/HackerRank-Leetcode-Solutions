@@ -27,11 +27,11 @@ class Solution:
             
         # Distinguish X & Y values for max and min number
         # NOTE: When looking at the graph, the minimum value will be the highest point for the intersecting rectangle. For X & Y values.
-        maxX = min(rectA.topRightX, rectB.topRightX) # 9
-        minX = max(rectA.bottomLeftX, rectB.bottomLeftX) # -3
+        maxX = min(rectA.topRightX, rectB.topRightX)
+        minX = max(rectA.bottomLeftX, rectB.bottomLeftX)
 
-        maxY = min(rectA.topRightY, rectB.topRightY) # 4
-        minY = max(rectA.bottomLeftY, rectB.bottomLeftY) #  -1
+        maxY = min(rectA.topRightY, rectB.topRightY)
+        minY = max(rectA.bottomLeftY, rectB.bottomLeftY)
 
         # If both rectangles do overlap, calculate area
         if maxX >= minX and maxY >= minY:
