@@ -36,10 +36,10 @@ class Solution:
         # If both rectangles do overlap, calculate area
         if maxX >= minX and maxY >= minY:
 
-            length = maxX - minX # 9 - -3 = 12
-            width = maxY - minY # 4 - -1 = 5
+            length = maxX - minX
+            width = maxY - minY
 
-            area = length * width # 60
+            area = length * width
 
         # If both rectangles don't intersect, set area to 0
         else:
