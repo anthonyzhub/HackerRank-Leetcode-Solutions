@@ -3,7 +3,38 @@
 from bisect import bisect
 
 class Solution:
+    
+    def binarySearch(self, letters, target, leftPtr, rightPtr):
+            
+        # Continue if pointers don't overlap
+        if leftPtr <= rightPtr:
+            
+            # Create middle pointer
+            midPtr = (leftPtr + rightPtr) // 2
+            
+            # If element at middle pointer is less than or equal to target, go to right-half of list
+            if letters[midPtr] <= target:
+                return self.binarySearch(letters, target, midPtr + 1, rightPtr)
+            
+            # If element at middle pointer greater than target, go to left-half of list
+            elif letters[midPtr] > target:
+                return self.binarySearch(letters, target, leftPtr, midPtr - 1)
+            
+        return leftPtr
+        
     def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        
+        # SOLUTION #1
+          
+        # Get index of where target should be
+        idx = self.binarySearch(letters, target, 0, len(letters) - 1)
+        
+        # Modulo is used in case binarySearch() suggests to insert target after the last element. If that's the case, return 0
+        return letters[idx % len(letters)]
+        
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        
+        # SOLUTION #2
         
         # If list is empty, exit function
         if letters is None:
