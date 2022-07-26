@@ -36,6 +36,7 @@ class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
         
         # Calculate number of jobs there are
+        # NOTE: All arrays will always share the same size
         numOfJobs = len(startTime)
         
         # Create a list of nodes
