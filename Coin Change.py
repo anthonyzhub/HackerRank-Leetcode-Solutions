@@ -4,7 +4,7 @@ class Solution:
     
     def coinChange(self, coins: List[int], amount: int) -> int:
         
-        # If amount is 0 and coins list isn't empty, return -1
+        # If amount is 0 and coins list isn't empty, return 0
         if amount == 0 and len(coins) > 0:
             return 0
         
@@ -14,9 +14,12 @@ class Solution:
         
         # Create a list for dynamic programming
         dp = [amount + 1] * (amount + 1)
+        
+        # Set 1st element as 0.
+        # NOTE: You need 0 coins to reach 0 amount
         dp[0] = 0
         
-        # Find out how many coins are needed to reach "i"
+        # Find out how many coins are needed to reach i-value
         for i in range(1, amount + 1):
             
             # Iterate coins list
