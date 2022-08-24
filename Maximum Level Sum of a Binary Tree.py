@@ -51,11 +51,10 @@ class Solution:
         """
         OBJECTIVE: Return smallest level inside the tree that its sum is greater than all the other levels
         
-        Time Complexity: O(2n) where n = # of nodes inside the tree and l = # of levels inside the tree.
-                        getHeight() calculate the tree's maximum height by visiting every node. traverseTree()
-                        visits every node and then calculates the level's sum.
+        Time Complexity: O(n) where n = # of nodes inside the tree. getHeight() calculate the tree's maximum height by visiting every node. traverseTree()
+                        visits every node and then calculates the level's sum. index() and max() both iterates the list in order to return the index of the maximum value.
         
-        Space Complexity: O(2n) where n = # of nodes inside the tree. levelSum[] holds n elements and traverseTree() creates a new memory stack per node
+        Space Complexity: O(n) where n = # of nodes inside the tree. levelSum[] holds n elements and traverseTree() creates a new memory stack per node.
         """
         
         # If root is empty, exit function
