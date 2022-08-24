@@ -42,6 +42,8 @@ class Solution:
         # Add total to levelSum
         levelSum[level + 1] += total
         
+        # NOTE: Root's value needs to be returned or else program will throw an error.
+        # In the recursive call, a value is expected to return. Plus, you can't add an integer with a null variable
         return root.val
     
     def maxLevelSum(self, root: Optional[TreeNode]) -> int:
