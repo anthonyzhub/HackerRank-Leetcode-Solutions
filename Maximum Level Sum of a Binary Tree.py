@@ -75,4 +75,5 @@ class Solution:
         self.traverseTree(root, 0, levelSum)
         
         # Return index of maximum element
+        # NOTE: Level numbering started at 0, so add 1 to return value
         return levelSum.index(max(levelSum)) + 1
