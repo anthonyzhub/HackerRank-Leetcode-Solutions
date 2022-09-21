@@ -14,7 +14,7 @@ class Solution:
         # Traverse list
         for i in range(2, size):
             
-            # Update ith element with additional cost from i-1 or i-2 element. Whichever is least expensive
+            # Update ith element by adding i-1 or i-2 element. Whichever is least expensive
             cost[i] += min(cost[i - 1], cost[i - 2])
             
         # Return minimum total cost
