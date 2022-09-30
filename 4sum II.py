@@ -34,7 +34,8 @@ class Solution:
                 
                 # If there's a negation of (i+j) inside dic, add it's value to res
                 # Remember, we're looking for how MANY tuples there are that sums to 0. 
-                # E.g., If there's 2 pairs with each having a sum of 3 and another 2 pairs with each having a sum of -3, then there are a total of 4 pairs in which added together will equal to 0
+                # E.g., If there's 2 pairs with each having a sum of 3 and another 2 pairs with each having a sum of -3, then there are a total of 4 pairs in 
+                #       which added together will equal to 0
                 
                 res += dic[-(i + j)]
                 
