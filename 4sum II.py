@@ -5,6 +5,16 @@ from collections import defaultdict
 class Solution:
     def fourSumCount(self, nums1: List[int], nums2: List[int], nums3: List[int], nums4: List[int]) -> int:
         
+        """
+        OBJECTIVE: Given four integer arrays nums1, nums2, nums3, and nums4 all of length n, return the number of tuples (i, j, k, l) such that 
+                    0 <= i, j, k, l < n and nums1[i] + nums2[j] + nums3[k] + nums4[l] == 0
+        
+        Time Complexity: O(n^2) where n = length of any array. 2 nested loops are used to create all possible combinations
+        
+        Space Complexity: O(k) where k = the number of keys in the hash map. Each key represents a sum of a possible combination between nums1 and nums2. 
+                            Combinations from nums3 and nums4 aren't really stored. Their negation were already created during the 1st nested for-loop
+        """
+        
         # Create a dictionary
         dic = defaultdict(int)
         
