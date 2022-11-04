@@ -4,6 +4,12 @@ class Solution:
     
     def slightlyfasterasteroidCollision(self, asteroids: List[int]) -> List[int]:
         
+        """
+        Time Complexity: O(n) where n = length of asteroids. The list is iterated once and the stack's size won't be greater than it.
+        
+        Space Complexity: O(n) where n = length of stack. Worst case scenario is having all asteroids moving to the same direction.
+        """
+        
         # Create a stack
         stack = list()
         
