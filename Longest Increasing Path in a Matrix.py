@@ -12,7 +12,7 @@ class Solution:
         if preCell >= matrix[xPos][yPos]:
             return 0
         
-        # If this cell was already visited, return its value. The value indicates how long the is the increasing path from this point
+        # If this cell was already visited, return its value. The value indicates how long the longest increasing path is from this point
         if (xPos, yPos) in memo:
             return memo[(xPos, yPos)]
         
