@@ -1,7 +1,36 @@
 # https://leetcode.com/problems/longest-increasing-subsequence/
 
 class Solution:
-    def lengthOfLIS(self, nums: List[int]) -> int:
+    
+    def slowSolution(self, nums: List[int]) -> int:
+        
+        """
+        OBJECTIVE: Given an integer array nums, return the length of the longest strictly increasing subsequence.
+        
+        Time Complexity: O(n^2) where n = length of nums. A nested for-loop is used to iterate nums in both directions.
+            
+        Space Complexity: O(n) where n = length of nums. A new list called cache is created with the same exact size as nums
+        """
+        
+        # Create a cache list where each value representings that longest increasing subsequence from each point
+        cache = [1] * len(nums)
+        
+        # Iterate nums in reverse
+        # NOTE: Remember that range() is non-inclusive, or [)
+        for i in range(len(nums) - 1, -1, -1):
+            
+            # Iterate nums from the neighboring element moving forward
+            for j in range(i + 1, len(nums)):
+                
+                # If ith number is less than jth, update cache
+                if nums[i] < nums[j]:
+                    
+                    # Only keep length of maximum subsequence
+                    cache[i] = max(cache[i], 1 + cache[j])
+                    
+        return max(cache)
+    
+    def fasterSolution(self, nums: List[int]) -> int:
         
         """
         OBJECTIVE: Given an integer array nums, return the length of the longest strictly increasing subsequence.
