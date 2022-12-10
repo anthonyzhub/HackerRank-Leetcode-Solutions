@@ -6,7 +6,8 @@ class Solution:
         """
         OBJECTIVE: Return the maximum amount of water a container can store.
 
-        Time Complexity: O(n) where n = length of height. The list is iterated once with 2 pointers. By using two pointers in one loop, it helps inspect the list quickly.
+        Time Complexity: O(n) where n = length of height. The list is iterated once with 2 pointers. By using two pointers in one loop, 
+                        it helps inspect the list quickly.
 
         Space Complexity: O(1) because no additional space was used
         """
@@ -20,7 +21,9 @@ class Solution:
         width = rightPtr - leftPtr
 
         # Create a variable to hold maximum area
-        # NOTE: Formula for area of a rectangle is width * height and the minimum height is calculated because it is the maximum amount of water that will hold. E.g., If there are 2 walls with a height of 1 and 8. Between those 2 walls, the water will spill after surpassing the wall with the height of 1.
+        # NOTE: Formula for area of a rectangle is width * height and the minimum height is calculated because it is the maximum amount of water that
+        #       will hold. E.g., If there are 2 walls with a height of 1 and 8. Between those 2 walls, the water will spill after surpassing the wall
+        #       with the height of 1.
         res = width * min(height[leftPtr], height[rightPtr])
 
         # Iterate list and compute maximum area
