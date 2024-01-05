@@ -1,7 +1,34 @@
 // https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 
 class Solution {
-    public int maxProfit(int[] prices) {
+
+    public int solution1(int[] prices) {
+        
+        int smallestPrice = Integer.MAX_VALUE;
+        int highestProfit = 0;
+        int todaysProfit = 0;
+
+        // Iterate array
+        for (int i = 0; i < prices.length; i++) {
+            
+            // Update smallestPrice
+            if (prices[i] < smallestPrice) {
+                smallestPrice = prices[i];
+            }
+
+            // Calculate todaysProfit
+            todaysProfit = prices[i] - smallestPrice;
+
+            // If highestProfit is smaller than todaysProfit, update variable
+            if (highestProfit < todaysProfit) {
+                highestProfit = todaysProfit;
+            }
+        }
+
+        return highestProfit;
+    }
+
+    public int solution2(int[] prices) {
         
         /*
         OBJECTIVE: You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
