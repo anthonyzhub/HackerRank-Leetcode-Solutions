@@ -90,4 +90,53 @@ class Solution {
         // return makeNewList(head);
         return swapInPlace(head);
     }
+
+    public ListNode recursiveApproach(ListNode head) {
+
+        /* This is the recursive approach */
+
+        if (head == null || head.next == null) {return head;}
+
+        ListNode newHead = recursive(head.next);
+        ListNode prev = null;
+
+        head.next.next = head;
+        head.next = prev;
+
+        return newHead;
+    }
+
+    public ListNode iterativeApproach(ListNode head) {
+
+        /* This is the iterative approach */
+
+        if (head == null || head.next == null) {return head;}
+
+        // Create a stack
+        Stack<ListNode> nodes = new Stack<ListNode>();
+
+        // Iterate linked list
+        ListNode curNode = head;
+        while (curNode != null) {
+            System.out.println("Inserted " + curNode.val);
+            nodes.push(curNode);
+            curNode = curNode.next;
+        }
+
+        // Create a new linked list
+        ListNode newHead = nodes.pop();
+
+        // Make copy of new linked list and pop stack
+        curNode = newHead;
+        while (!nodes.empty()) {
+            curNode.next = nodes.pop();
+            System.out.println("Popped " + curNode.val);
+            curNode = curNode.next;
+        }
+
+        // Set curNode.next to null or else a cycle will exist!
+        // and return new linked list
+        curNode.next = null;
+        return newHead;
+    }
 }
