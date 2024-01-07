@@ -15,27 +15,28 @@
 public class Solution {
     public boolean hasCycle(ListNode head) {
         
-        // If head is empty or not linked to anything, return false
+        /*
+         * Time Complexity: O(n) where n = length of linked list
+         * Space Complexity: O(1) because no dynamic data structures were created. Only 2 extra nodes.
+         */
+
+        // If linked list is empty or head isn't linked to anything, return false
         if (head == null || head.next == null) {return false;}
-        
-        // Create a list and a new node
-        ArrayList<ListNode> log = new ArrayList();
-        ListNode curNode = head;
-        
-        // Cycle linked list
-        while (curNode != null) {
-            
-            // If node already exist inside array list, return true
-            if (log.contains(curNode) == true) {
+
+        // Create 2 nodes - tortoise and the haire
+        ListNode tortoise = head;
+        ListNode haire = head;
+
+        // If there are no more nodes for the haire to move to, exit loop
+        while (haire.next != null && haire.next.next != null) {
+
+            tortoise = tortoise.next;
+            haire = haire.next.next;
+
+            if (tortoise == haire) {
                 return true;
             }
-            
-            // Add node to array list
-            log.add(curNode);
-            curNode = curNode.next;
         }
-        
-        // If function is still continuing, then cycle is non-existent
+
         return false;
-    }
 }
