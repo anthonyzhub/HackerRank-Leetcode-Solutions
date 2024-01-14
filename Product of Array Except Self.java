@@ -11,23 +11,27 @@ class Solution {
         Space Complexity: O(n) where n = length of res. A return array had to be created and its size is based off nums' size
         */
         
-        // Get length of nums
-        int n = nums.length;
+        // If nums only has 2 elements, swap them
+        if (nums.length == 2) {
+            return new int[]{nums[1], nums[0]};
+        }
 
-        // Create a return array filled with 1's
-        int[] res = new int[n];
+        // Create a return array and fill it with 1's
+        int[] res = new int[nums.length];
         Arrays.fill(res, 1);
 
-        // Calculate prefix and update res
+        // Calculate product of prefix of ith element and save it in res
+        // I.e., prefix = product(nums[:i])
         int prefix = 1;
-        for (int i = 0; i < n; i++) {
+        for(int i = 0; i < nums.length; i++) {
             res[i] = prefix;
             prefix *= nums[i];
         }
 
-        // Calculate postfix and update res
+        // Calculate product of postfix of ith element and save it in res
+        // I.e., postfix = product(nums[i+1:])
         int postfix = 1;
-        for (int i = n - 1; i >= 0; i--) {
+        for(int i = nums.length - 1; i >= 0; i--) {
             res[i] *= postfix;
             postfix *= nums[i];
         }
