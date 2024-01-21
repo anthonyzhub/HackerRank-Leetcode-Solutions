@@ -11,9 +11,19 @@
  * }
  */
 
-class Solution {
+ class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 
+        /*
+         * Time Complexity: O(n) where n = length of the longest linked list. If one list
+         *  is longer than the other, then a 2nd while-loop will be triggered.
+         * 
+         * Space Complexity: O(1) because no additional data structure was created. I'm not creating
+         *  an entirely new linked list. I just created a new data and corrected the links
+         *  between the existing nodes in both linked lists.
+         */
+
+        // If either lists are null, return null or non-empty head
         if (list1 == null || list2 == null) {
             if (list1 == null & list2 == null) {return null;}
             else if (list1 == null) {return list2;}
