@@ -14,6 +14,14 @@
  class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
 
+        /*
+         * Time Complexity: O(n) where n = length of linked list. We have to iterate the entire
+         *  list to find the nth to last node.
+         * 
+         * Space Complexity: O(1) because no dynamic data structure was created. Only 3 nodes were
+         *  created and they take constant space to make.
+         */
+
         // If head is empty or by itself, return null
         if (head == null || head.next == null) {
             return null;

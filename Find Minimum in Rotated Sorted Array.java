@@ -54,4 +54,53 @@ class Solution {
         // Java expects a value to be returned even if conditions inside while-loop fails
         return 0;
     }
+
+    // SOLUTION 3
+    public int findMinSolutionThree(int[] nums) {
+
+        /*
+         * Time Complexity: O(log n) where n = length of nums. Nums is split by half until one element remains.
+         *  Then, the algorithm compares that one element in its half.
+         * 
+         * Space Complexity: O(1) because no dynamic data structure or stack was created.
+         */
+
+        if (nums.length == 1) {
+            return nums[0];
+        }
+
+        // Create a return variable. This will hold the smallest element
+        int res = nums[0];
+
+        // Create a left and right pointer
+        int leftPtr = 0;
+        int rightPtr = nums.length - 1;
+        
+        // Iterate array
+        while (leftPtr <= rightPtr) {
+
+            // If the array between left and right pointer is already sorted in ascending order, return the smallest value
+            if (nums[leftPtr] < nums[rightPtr]) {
+                res = Math.min(res, nums[leftPtr]);
+                break;
+            }
+
+            // Calculate middle index
+            int midIdx = (int) rightPtr - leftPtr / 2;
+            res = Math.min(res, nums[midIdx]);
+
+            // If left half of subarray is already sorted in ascending order, then move leftPtr to the right half to investigate the right side.
+            // E.g., [3, 4, 5, 1, 2]
+            if (nums[midIdx] >= nums[leftPtr]) {
+                leftPtr = midIdx + 1;
+            }
+            else {
+                // If right half of subarray is already sorted in ascending order, then move rightPtr to the left left half.
+                // E.g., [1, 2, 3, 4, 5]
+                rightPtr = midIdx - 1;
+            }
+        }
+
+        return res;
+    }
 }
