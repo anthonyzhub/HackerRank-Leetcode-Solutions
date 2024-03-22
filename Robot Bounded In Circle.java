@@ -28,6 +28,8 @@ class Solution {
          * Time Complexity: O(n) where n = length of instructions
          * 
          * Space Complexity: O(n) where n = length of char array, which is based on instructions' length
+         * 
+         * Asked by Goldman Sachs, Amazon, Bloomberg, and Airbnb
          */
         
         // Create a list of directions
