@@ -2,6 +2,45 @@
 
 class Solution {
 
+    public int mySolution(int[] prices) {
+
+        /*
+         * SIDE NOTE: This is the solution that I came up with :)
+         * IMPORTANT: It really helps to create a graph and understand it from a non-programming perspective.
+         *  Do what you normally do when trading stocks, buy low and sell high :)
+         * 
+         * Time Complexity: O(n) where n = length of input list. The list iterated once
+         * 
+         * Space Complexity: O(1) because no additional dynamic data structure was created
+         */
+
+        // If there's only 1 price inside list, then you can't make a profit
+        if (prices.length <= 1) {
+            return 0;
+        }
+
+        int maxProfit = 0;
+
+        // Set 1st price as buying price and iterate list
+        int buyingPrice = prices[0];
+        for (int i = 1; i < prices.length; i++) {
+
+            // Set ith element as selling price
+            int sellingPrice = prices[i];
+            
+            // If sellingPrice - buyingPrice >= 0, update maxProfit
+            // If not, then update buyingPrice to the newest smallest price
+            if (buyingPrice <= sellingPrice) {
+                maxProfit = Math.max(maxProfit, sellingPrice - buyingPrice);
+            }
+            else {
+                buyingPrice = prices[i];
+            }
+        }
+
+        return maxProfit;
+    }
+
     public int solution1(int[] prices) {
         
         int smallestPrice = Integer.MAX_VALUE;
