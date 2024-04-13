@@ -18,6 +18,16 @@
 
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
+
+        /*
+         * Time Complexity: O(n) where n = the number of nodes in the largest tree. During the recursive call,
+         *  all nodes will be called upon and inspected. Even if one tree has less nodes than the other, the 
+         *  algorithm will still check the tree with the most nodes.
+         * 
+         * Space Complexity: O(h) where h = the tree with the tallest height. This is a recursive function, so
+         *  for every new method call, a stack frame will be added. The depth of the tree will influence how many
+         *  stack frames will be created.
+         */
         
         // If both are null, then trees are identical
         if (p == null && q == null) {
