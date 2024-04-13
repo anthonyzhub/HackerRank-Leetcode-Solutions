@@ -15,46 +15,41 @@
  *     }
  * }
  */
-
 class Solution {
-    
-    public boolean compareTrees(TreeNode root, TreeNode subRoot) {
+
+    private boolean isSameTree(TreeNode root, TreeNode subRoot) {
         
-        // If both roots are null, return true
-        if (root == null && subRoot == null) {return true;}
-        
-        // If either roots are null, return false
-        if (root == null || subRoot == null) {return false;}
-        
-        // If both roots don't share the same value, return false
-        if (root.val != subRoot.val) {return false;}
-        
-        // Check left and right subtrees on both roots
-        boolean leftSubTree = compareTrees(root.left, subRoot.left);
-        boolean rightSubTree = compareTrees(root.right, subRoot.right);
-        
-        // If entire subRoot and its children were found together inside of root, return true.
-        // If not, return false
-        return leftSubTree && rightSubTree;
+        if (root == null || subRoot == null) {
+            return root == null && subRoot == null; 
+        }
+
+        if (root.val == subRoot.val) {
+            return isSameTree(root.left, subRoot.left) && isSameTree(root.right, subRoot.right);
+        }
+
+        return false;
     }
-    
+
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+
+        /*
+         * Time Complexity: O(h1 * h2) where h1 and h2 is the height from root's and subRoot's tree, respectively.
+         *  isSubtree() goes through root's levels until it reaches a node where its value is the same
+         *  as subRoot. Once that's found, it goes to isSameTree() which it iterates both trees.
+         * 
+         * Space Complexity: O(h1 * h2) for the same reason as above. For every method call, a new stack
+         *  frame will be added the stack method call.
+         * 
+         */
         
-        // If both roots are null, return true
-        if (root == null && subRoot == null) {return true;}
-        
-        // If either roots are null, return false
-        if (root == null || subRoot == null) {return false;}
-        
-        // Check if subtree is part of root
-        if (compareTrees(root, subRoot)) {return true;}
-        
-        // If subtree hasn't been found yet, move down in root
-        boolean leftSubTree = isSubtree(root.left, subRoot);
-        boolean rightSubTree = isSubtree(root.right, subRoot);
-        
-        // If subRoot was found on root's left or right side, return true.
-        // If not, return false
-        return leftSubTree || rightSubTree;
+        if (root == null) {
+            return false;
+        }
+
+        if (isSameTree(root, subRoot)) {
+            return true;
+        }
+
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
 }
