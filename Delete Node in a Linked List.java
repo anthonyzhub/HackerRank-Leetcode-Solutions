@@ -20,22 +20,23 @@ class Solution {
                         
         Space Complexity: O(1) because no additional space was needed
         */
-        
-        // Iterate list
-        while (node.next.next != null) {
-            
-            // Swap values with next node
-            int oldVal = node.val;
-            node.val = node.next.val;
-            node.next.val = oldVal;
-            
-            // Move to next node
-            node = node.next;
+
+        // Create a pointer
+        ListNode curNode = node;
+
+        // Iterate list and make sure 2 nodes ahead of you isn't null
+        while (curNode.next.next != null) {
+
+            // Move neighboring node's value to current node
+            int nextValue = curNode.next.val;
+            curNode.val = nextValue;
+            curNode = curNode.next;
         }
-        
-        // Move value from next node to this node
+
+        // At the second to last node, copy next node's value and set next as null
         // NOTE: At this point, node is behind the last node of the linked list
-        node.val = node.next.val;
-        node.next = null;
+        int nextValue = curNode.next.val;
+        curNode.val = nextValue;
+        curNode.next = null;
     }
 }
