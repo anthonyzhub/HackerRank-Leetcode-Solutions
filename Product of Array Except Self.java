@@ -1,4 +1,5 @@
-// https://leetcode.com/problems/product-of-array-except-self/description/
+// https://leetcode.com/problems/product-of-array-except-self/
+// https://youtu.be/bNvIQI2wAjk?si=ihqdLyVU3qYE90qD
 
 class Solution {
     public int[] productExceptSelf(int[] nums) {
