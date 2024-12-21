@@ -1,82 +1,73 @@
 // https://leetcode.com/problems/top-k-frequent-elements/
-
-import java.util.*;
-import java.util.Map.*;
+// https://youtu.be/YPTqKIgVk-k?si=AQSryFjg28hRYprw
 
 class Solution {
-    
-    public HashMap<Integer, Integer> counter(int[] nums) {
-        
-        // OBJECTIVE: Store elements and number of occurrences of each element from nums in a hash map
-        
-        // Create a hash map
-        HashMap<Integer, Integer> dic = new HashMap<>();
-        
-        // Iterate array
-        for (int elem: nums) {
-            
-            // If elem exist in dic, increment its value
-            if (dic.containsKey(elem)) {
-                dic.put(elem, dic.get(elem) + 1);
-            }
-            
-            // If not, add elem to dic with a value of 1
-            else {
-                dic.put(elem, 1);
-            }
-        }
-        
-        return dic;
-    }
-    
-    public int[] sortByValue(HashMap<Integer, Integer> map, boolean order, int k) {
-        
-        // OBJECTIVE: Sory hash map by value
-        
-        // Convert HashMap into a list
-        List<Entry<Integer, Integer>> list = new LinkedList<Entry<Integer, Integer>>(map.entrySet());
-    
-        // Sort list
-        Collections.sort(list, new Comparator<Entry<Integer, Integer>>() {
-            
-            public int compare(Entry<Integer, Integer> object1, Entry<Integer, Integer> object2) {
 
-                // OBJECTIVE: Return integer value indicating which object goes first
+    private Map<Integer, Integer> generateNumberFrequencyMap(int[] nums) {
+        Map<Integer, Integer> numberFrequencyMap = new HashMap<>();
 
-                if (order) {
-                    return object1.getValue().compareTo(object2.getValue());
-                }
-                else {
-                    return object2.getValue().compareTo(object1.getValue());
-                }
+        for (int number: nums) {
+
+            if (numberFrequencyMap.containsKey(number)) {
+                Integer oldValue = numberFrequencyMap.get(number);
+                numberFrequencyMap.put(number, oldValue + 1);
+                continue;
             }
-            
-        });
-        
-        // Create a return array
-        int[] res = new int[k];
-        
-        // Add the first k elements from list to array
-        for (Entry<Integer, Integer> entry: list) {
-            
-            // Add entry to array
-            if (k > 0) {
-                k--;
-                res[res.length - k - 1] = entry.getKey();
-            } 
-            else {
-                break;
-            }
+
+            numberFrequencyMap.put(Integer.valueOf(number), 1);
         }
-        return res;
+
+        return numberFrequencyMap;
     }
-    
+
+    private List<List<Integer>> generateMatrixFilledWithEmptyLists(int size) {
+        List<List<Integer>> matrix = new ArrayList<>();
+
+        for (int i = 0; i < size + 1; i++) {
+            matrix.add(new ArrayList<>());
+        }
+
+        return matrix;
+    }
+
+    private void populateMatrix(Map<Integer, Integer> numberFrequencyMap, List<List<Integer>> matrix) {
+        for (Map.Entry<Integer, Integer> entry: numberFrequencyMap.entrySet()) {
+
+            Integer number = entry.getKey();
+            Integer idxOfNumber = entry.getValue();
+
+            matrix.get(idxOfNumber).add(number);
+        }
+    }
+
     public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> numberFrequencyMap = generateNumberFrequencyMap(nums);
+        List<List<Integer>> matrix = generateMatrixFilledWithEmptyLists(nums.length);
         
-        // Pass array to counter()
-        HashMap<Integer, Integer> dic = counter(nums);
-        
-        // Sort Hash Map by values
-        return sortByValue(dic, false, k);
+        populateMatrix(numberFrequencyMap, matrix);
+
+        List<Integer> res = new ArrayList();
+        boolean sizeLimitReached = false;
+
+        // Create a list iterator from matrix and iterate matrix in reverse.
+        ListIterator<List<Integer>> it = matrix.listIterator(matrix.size());
+        while (it.hasPrevious()) {
+
+            // Pop element and iterate it
+            List<Integer> poppedList = it.previous();
+            for (int i = 0; i < poppedList.size(); i++) {
+
+                // If res reaches its size limit, exit function.
+                // If not, continue adding elements from poppedElem to res
+                sizeLimitReached = res.size() == k ? true : false;
+                if (sizeLimitReached) {
+                    return res.stream().mapToInt(Integer::intValue).toArray();
+                }
+
+                res.add(poppedList.get(i));
+            }
+        }
+
+        return res.stream().mapToInt(Integer::intValue).toArray();
     }
 }
