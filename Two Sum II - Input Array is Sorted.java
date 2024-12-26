@@ -3,6 +3,8 @@
 /*
 Time Complexity: O(n) where n = length of input array
 Space Complexity: O(n) n = length of unique numbers in input array
+
+IMPORTANT: Same solution as 2Sum
 */
 
 class Solution {
