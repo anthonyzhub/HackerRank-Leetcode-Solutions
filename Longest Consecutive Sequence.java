@@ -25,11 +25,12 @@ class Solution {
         // E.g., Assume curNumber is 10
         for (Integer curNumber: uniqueNums) {
 
-            // Check if 9 exist inside set
+            // Check that 9 doesn't exist inside set.
+            // Why? Because we don't want to count a sequence twice. We should just go through the sequence in its entirety.
             if (!uniqueNums.contains(curNumber - 1)) {
 
                 // From this idx, calculate longest subsequence
-                // Does 9 + 1 exist? Does 9 + 2 exist? Etc.)
+                // Does 10 + 1 exist? Does 10 + 2 exist? Etc.)
                 int curLength = 0;
                 while (uniqueNums.contains(curNumber + curLength)) {
                     curLength++;
