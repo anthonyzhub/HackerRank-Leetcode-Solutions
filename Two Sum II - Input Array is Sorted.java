@@ -1,35 +1,35 @@
 // https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
 
+/*
+Time Complexity: O(n) where n = length of input array
+Space Complexity: O(n) n = length of unique numbers in input array
+*/
+
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
-        
-        // Create an array
-        int[] tmpArray = new int[2];
-        
-        // If numbers only has 2 element, return it
+
+        // IMPORTANT: Problem states that each input is guaranteed a solution,
+        //  so this was hardcoded
         if (numbers.length == 2) {
-            tmpArray[0] = 1;
-            tmpArray[1] = 2;
-            return tmpArray;
+            return new int[]{1, 2};
         }
-        
-        // Iterate array
-        for (int i=0; i<numbers.length; i++) {
-            for (int j=i+1; j<numbers.length; j++) {
-                
-                // Once the only solution has been found, return it
-                if (numbers[i] + numbers[j] == target) {
-                    tmpArray[0] = i + 1;
-                    tmpArray[1] = j + 1;
-                    
-                    return tmpArray;
-                }
+
+        Map<Integer, Integer> complementMap = new HashMap<>();
+
+        for (int i = numbers.length - 1; i >= 0; i--) {
+            Integer number = Integer.valueOf(numbers[i]);
+
+            if (complementMap.containsKey(number)) {
+                return new int[]{i + 1, complementMap.get(number).intValue() + 1};
             }
+
+            // IMPORTANT: For this to work, order of subtraction was important.
+            // E.g., It works if target - number, not number - target because
+            //  a key's original value can be overriden.
+            Integer complement = Integer.valueOf(target) - number;
+            complementMap.put(complement, Integer.valueOf(i));
         }
-        
-        // NOTE: The problem states that each test with only have one solution.
-        //      However, Java doesn't know that, so it will claim that there is an error since SOMETHING has to be returned.
-        //      Therefore, I added this return statement even if it won't ever be used.
-        return tmpArray;
+
+        return null;
     }
 }
