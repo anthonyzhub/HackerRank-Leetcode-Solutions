@@ -1,49 +1,42 @@
-// https://leetcode.com/problems/container-with-most-water/description/
+// https://leetcode.com/problems/container-with-most-water/
+
+/*
+Time Complexity: O(n/2) where n = length of input array
+Space Complexity: O(1) because no additional dynamic data structure was created
+*/
 
 class Solution {
     public int maxArea(int[] height) {
         
-        /*
-        OBJECTIVE: Return the maximum amount of water a container can store.
-        
-        Time Complexity: O(n) where n = length of height. The list is iterated once with 2 pointers. By using two pointers in one loop, it helps inspect 
-                        the list quickly.
-        
-        Space Complexity: O(1) because no additional space was used
-        */
+        if (height.length == 2) {
+            return Math.min(height[0], height[1]);
+        }
 
-        // Get array's length
-        int n = height.length;
-
-        // Create 2 pointers and calculate current width
+        // Create 2 pointers
         int leftPtr = 0;
-        int rightPtr = n - 1;
-        int width = rightPtr - leftPtr;
+        int rightPtr = height.length - 1;
 
-        // Create a variable to hold maximum area between left and right pointer
-        // NOTE: Formula for area of a rectangle is width * height and the minimum height is calculated because it is the maximum amount of water that 
-        //        will hold. E.g., If there are 2 walls with a height of 1 and 8. Between those 2 walls, the water will spill after surpassing the wall
-        //        with the height of 1.
-        int res = width * Math.min(height[leftPtr], height[rightPtr]);
-
-        // Iterate array
+        // Iterate list until pointers meet
+        int maxArea = 0;
         while (leftPtr < rightPtr) {
 
-            // If left value is smaller than right, move left pointer
+            // Calculate area between pointers
+            int curDistance = rightPtr - leftPtr;
+            int curArea = Math.min(height[leftPtr], height[rightPtr]) * curDistance;
+            
+            // Update max
+            maxArea = Math.max(maxArea, curArea);
+
+            // Only move pointer that is pointing to a lower number
+            // IMPORTANT: Our goal is to find the max area, so it's best to find the next largest number
             if (height[leftPtr] < height[rightPtr]) {
                 leftPtr++;
             }
             else {
                 rightPtr--;
             }
-
-            // Update width after every pointer movement
-            width = rightPtr - leftPtr;
-
-            // Keep maximum rectangle area
-            res = Math.max(res, width * Math.min(height[leftPtr], height[rightPtr]));
         }
 
-        return res;
+        return maxArea;
     }
 }
