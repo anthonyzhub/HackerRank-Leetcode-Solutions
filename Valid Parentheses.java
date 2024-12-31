@@ -14,38 +14,38 @@ class Solution {
          */
         
         // Create a hash map
-        Map<Character, Character> closingCharacters = new HashMap<>(Map.of(
+        Map<Character, Character> matchingPairsMap = Map.of(
             '}', '{',
             ']', '[',
             ')', '('
-        ));
+        );
 
         // Create a stack
-        Stack<Character> mainStack = new Stack<>();
+        Stack<Character> visitedElems = new Stack<>();
 
         // Iterate string
         for (int i = 0; i < s.length(); i++) {
 
-            Character c = Character.valueOf(s.charAt(i));
+            Character curCharacter = Character.valueOf(s.charAt(i));
             
             // Check if c is a closing character
-            if (closingCharacters.containsKey(c)) {
+            if (matchingPairsMap.containsKey(curCharacter)) {
 
-                // If stack isn't empty AND stack head is a matching pair with c, pop stack head.
+                // If stack isn't empty AND stack head is a matching pair with curCharacter, pop stack head.
                 // If not, return false because the string doesn't have a valid parentheses
-                if (!mainStack.empty() && mainStack.peek() == closingCharacters.get(c)) {
-                    mainStack.pop();
+                if (!visitedElems.empty() && visitedElems.peek() == matchingPairsMap.get(curCharacter)) {
+                    visitedElems.pop();
                 }
                 else {
                     return false;
                 }
             }
-            else { // If c is another opening character, add it to stack
-                mainStack.push(c);
+            else { // If curCharacter is another opening character, add it to stack
+                visitedElems.push(curCharacter);
             }
         }
 
         // If stack is empty, then string had valid parentheses. If not, return false
-        return mainStack.empty();
+        return visitedElems.empty();
     }
 }
