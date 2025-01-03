@@ -28,7 +28,7 @@ class Solution {
 
             Character curCharacter = Character.valueOf(s.charAt(i));
             
-            // Check if c is a closing character
+            // Check if curCharacter is a closing character
             if (matchingPairsMap.containsKey(curCharacter)) {
 
                 // If stack isn't empty AND stack head is a matching pair with curCharacter, pop stack head.
