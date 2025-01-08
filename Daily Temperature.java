@@ -1,5 +1,7 @@
 // https://leetcode.com/problems/daily-temperatures/
 // https://youtu.be/cTBiBSnjO3c?si=83SNP0LT1tt30kro
+//
+// IMPORTANT: The solution requires knowing what a monotonic stack is and how it works.
 
 /*
 Time Complexity: O(n) where n = length of temperatures
