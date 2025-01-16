@@ -1,7 +1,6 @@
 // https://leetcode.com/problems/valid-sudoku/
 /*
-Time Complexity: O(n^2) where n = number of elements inside board. We're checking all the elements in each row, column, and
-    box.
+Time Complexity: O(n^2) where n = number of elements inside board. We're checking all the elements in each row, column, and box.
 
 Space Complexity: O(n) where n = number of elements inside set per row, column, and box. In my opinion, it's O(n) instead of 
     O(n^2) because each set is cleared per loop (not just nested loops).
