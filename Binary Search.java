@@ -1,31 +1,36 @@
 // https://leetcode.com/problems/binary-search/
+/*
+Time Complexity: O(n log n) where n = size of nums. It could have been O(log n) if I didn't have to sort the array.
+Space Complexity: O(n log n) where n = size of nums. It could have been O(log n) if I didn't have to sort the array.
+*/
 
 class Solution {
-    
-    public int binarySearch(int[] nums, int front_idx, int rear_idx, int target) {
-        
-        // If array is empty, exit function
-        if (front_idx > rear_idx) {return -1;}
-        
-        // Get midpoint
-        int mid_idx = (rear_idx - front_idx) + front_idx;
-        int mid_elem = nums[mid_idx];
-        
-        // If target is found, return element's index
-        if (mid_elem == target) {
-            return mid_idx;
+
+    private int find(int[] nums, int leftPtr, int rightPtr, int target) {
+        if (leftPtr > rightPtr) {
+            return -1;
         }
-        
-        // Slice array
-        if (mid_elem > target) {
-            return binarySearch(nums, front_idx, mid_idx - 1, target);
+
+        int midPtr = leftPtr + ((rightPtr - leftPtr) / 2);
+
+        if (target === nums[midPtr]) {
+            return midPtr;
+        }
+        else if (target < nums[midPtr]) {
+            return find(nums, leftPtr, midPtr - 1, target);
         }
         else {
-            return binarySearch(nums, mid_idx + 1, rear_idx, target);
+            return find(nums, midPtr + 1, rightPtr, target);
         }
     }
-    
+
     public int search(int[] nums, int target) {
-        return binarySearch(nums, 0, nums.length - 1, target);
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
+
+        // IMPORTANT: Binary search ONLY works if array is sorted
+        Arrays.sort(nums);
+        return find(nums, 0, nums.length - 1, target);
     }
 }
