@@ -9,44 +9,49 @@ Space Complexity: O(m) where m = size of res
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
-        
-        List<List<Integer>> res = new ArrayList<>();
 
-        for (int idx = 0; idx < nums.length; idx++) {
+        List<List<Integer>> result = new ArrayList<>();
 
-            // If this isn't the first iteration and there are repeating numbers, skip to next element
-            if (idx > 0 && nums[idx - 1] == nums[idx]) {
+        int numsLength = nums.length;
+        for (int i = 0; i < numsLength; i++) {
+
+            // Skip duplicate numbers
+            if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
 
-            // Create 2 pointers and traverse remaining half of array
-            int leftPtr = idx + 1;
-            int rightPtr = nums.length - 1;
+            // Below is the 2Sum solution with 2 pointers and a slight modification
+            int baseValue = nums[i];
+            int leftPtr = i + 1;
+            int rightPtr = numsLength - 1;
             while (leftPtr < rightPtr) {
-                int threeSum = nums[idx] + nums[leftPtr] + nums[rightPtr];
+                int curSum = baseValue + nums[leftPtr] + nums[rightPtr];
 
-                // Adjust pointer if current total isn't equal to 0.
-                // If it is, add combination to return array
-                if (threeSum > 0) {
+                if (curSum > 0) {
                     rightPtr--;
-                }
-                else if (threeSum < 0) {
+                } else if (curSum < 0) {
                     leftPtr++;
-                }
-                else {
-                    List<Integer> possibleSolution = new ArrayList<>(Arrays.asList(nums[idx], nums[leftPtr], nums[rightPtr]));
-                    res.add(possibleSolution);
-                    leftPtr++;
+                } else {
+                    result.add(List.of(baseValue, nums[leftPtr], nums[rightPtr]));
 
-                    // We need to move a pointer (it could be any) to a new number
-                    // IMPORTANT: Neetcode explains best at minute 10
-                    while (leftPtr < rightPtr && nums[leftPtr - 1] == nums[leftPtr]) {
+                    /* Breakdown:
+                    This problem involves knowing combination and permutation. Let me explain.
+
+                    The result must not contain duplicate numbers, however we can use the same base along side other numbers.
+                    Below this comment, I'm keeping the baseValue but I'm moving the leftPtr to a brand new number. 
+                    rightPtr will still be updated, but only if curSum > 0. I tested it and can confirm I can also only just update the rightPtr below.
+                    By updating the leftPtr (or any pointer), I am simply creating a new combination and testing if its sum is equal to 0.
+
+                    It took a while for me to realize why the below while-loop is important until I started to explain the code out loud. 
+                    */
+                    leftPtr++;
+                    while (nums[leftPtr] == nums[leftPtr - 1] && leftPtr < rightPtr) {
                         leftPtr++;
                     }
                 }
             }
         }
 
-        return res;
+        return result;
     }
 }
