@@ -8,32 +8,40 @@ Space Complexity: O(n) where n = size of mainStack and minStack (whichever is th
 
 class MinStack {
 
-    private Stack<Integer> mainStack;
-    private Stack<Integer> minStack;
+    Stack<Integer> mainStack;
+    Stack<Integer> minTrackerStack;
 
     public MinStack() {
         this.mainStack = new Stack<>();
-        this.minStack = new Stack<>();
+        this.minTrackerStack = new Stack<>();
     }
     
     public void push(int val) {
-        Integer valAsInt = Integer.valueOf(val);
-        mainStack.push(valAsInt);
-        valAsInt = Math.min(valAsInt, !minStack.empty() ? minStack.peek() : valAsInt);
-        minStack.push(valAsInt);
+        Integer valInteger = Integer.valueOf(val);
+
+        if (mainStack.empty()) {
+            mainStack.push(valInteger);
+            minTrackerStack.push(valInteger);
+        } else {
+            mainStack.push(valInteger);
+
+            Integer trackerPeekElem = minTrackerStack.peek();
+            Integer smallestValue = valInteger > trackerPeekElem ? trackerPeekElem : valInteger;
+            minTrackerStack.push(smallestValue);
+        }
     }
     
     public void pop() {
         mainStack.pop();
-        minStack.pop();
+        minTrackerStack.pop();
     }
     
     public int top() {
-        return mainStack.peek();
+        return mainStack.peek().intValue();
     }
     
     public int getMin() {
-        return minStack.peek();
+        return minTrackerStack.peek().intValue();
     }
 }
 
