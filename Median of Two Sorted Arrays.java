@@ -17,10 +17,8 @@ class Solution {
         /*
         OBJECTIVE: Return median of 2 sorted arrays
         
-        Time Complexity: O(m + n + (c log c)) where m = length of nums1, n = length of nums2, c = length of                         the list of where the median is being calculated.
-                        
+        Time Complexity: O(m + n + (c log c)) where m = length of nums1, n = length of nums2, c = length of the list of where the median is being calculated.
                         O(m + n) comes from the 1st two lines of m and n. Those lines are calculating the length of both lists.
-                        
                         O(c log c) comes from timsort. If both lists are non-empty, they are merged and sorted with the timsort algorithm. 
         
         Space Complexity: It is between O(n) and O(1), depending on whether or not nums1 and nums2 are non-empty. If both lists are non-empty, then the
