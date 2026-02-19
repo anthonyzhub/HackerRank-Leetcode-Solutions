@@ -16,87 +16,51 @@ class Node {
 */
 
 /*
-Map of memory addresses{
-    original node: new node
-}
+Time Complexity: O(n) where n = length of original linked list. The original linked list is being iterated 2 times.
 
-Steps:
+Space Complexity: O(k) where k = # of keys inside Hash Map.
 
-1. Create a new list based on next pointer
-2. For every new node, store original node and clone to map where original node is key and clone is value.
-    - In this step, map is storing the memory addresses of each node.
-3. Iterate original list again and find node being pointed by random pointer in map
-4. Connect new node to the random node's clone
-
-===
-Time Complexity: O(n) where n = size of linked list
-Space Complexity: O(n) where n = size of linked list. The size affects the size of the map and cloned linked list.
+Thought Process:
+- Create a map where key = oldNode, value = newNode
+- Iterate original linked list
+- while iterating,
+    - Create a deepy copy of existing node
+    - Insert old node and new node to map
+- Create a dummy node and reference to head of new linked list
+- Iterate old linked list again
+- Upon every iteration, fetch new node and update its next and random pointer
+- Return head of new linked list
 */
 
 class Solution {
+    public Node copyRandomList(Node head) {
+        Map<Node, Node> nodeMap = new HashMap<>();
 
-    private Node createCloneLinkedList(Node head, Map<Node, Node> nodeMap) {
+        Node curNode = head;
+        while (curNode != null) {
+            Node newNode = new Node(curNode.val);
+            nodeMap.put(curNode, newNode);
+            curNode = curNode.next;
+        }
 
-        // Create new linked list
-        Node origNode = head;
-        Node cloneNode = new Node(0);
         Node dummyNode = new Node(0);
-        dummyNode.next = cloneNode;
+        dummyNode.next = nodeMap.get(head);
 
-        // Iterate original linked list
-        while (origNode != null) {
+        curNode = head;
+        while (curNode != null) {
+            Node newNode = nodeMap.get(curNode);
             
-            // Override default value
-            cloneNode.val = origNode.val;
-
-            // Insert memory address of each node to map
-            nodeMap.put(origNode, cloneNode);
-            
-            origNode = origNode.next;
-
-            // IMPORTANT: Added this because if I didn't, cloned linked list would end with an extra node
-            if (origNode != null) {
-                cloneNode.next = new Node(0);
-                cloneNode = cloneNode.next;
+            if (curNode.next != null) {
+                newNode.next = nodeMap.get(curNode.next);
             }
+            
+            if (curNode.random != null) {
+                newNode.random = nodeMap.get(curNode.random);
+            }
+
+            curNode = curNode.next;
         }
 
         return dummyNode.next;
-    }
-
-    private void populateRandomPointers(Node origHead, Node cloneHead, Map<Node, Node> nodeMap) {
-
-        Node origNode = origHead;
-        Node cloneNode = cloneHead;
-
-        // IMPORTANT: After a successful cloning, both linked lists are the same size
-        while (origNode != null) {
-
-            // If random pointer is null, move to next node in both linked lists
-            if (origNode.random == null) {
-                origNode = origNode.next;
-                cloneNode = cloneNode.next;
-                continue;
-            }
-
-            // Get clone of random pointer and update curNode in cloned linked list
-            cloneNode.random = nodeMap.get(origNode.random);
-
-            origNode = origNode.next;
-            cloneNode = cloneNode.next;
-        }
-    }
-
-    public Node copyRandomList(Node head) {
-        if (head == null) {
-            return null;
-        }
-
-        Map<Node, Node> nodeMap = new HashMap<>();
-
-        Node cloneHead = createCloneLinkedList(head, nodeMap);
-        populateRandomPointers(head, cloneHead, nodeMap);
-
-        return cloneHead;
     }
 }
