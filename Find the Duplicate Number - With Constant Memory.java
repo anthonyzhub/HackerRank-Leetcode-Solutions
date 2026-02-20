@@ -1,44 +1,38 @@
-// https://leetcode.com/problems/find-the-duplicate-number/
-
 /*
-- Algorithm is based on Floyd's Tortoise and Hare Cycle Detection
-- Time complexity is O(n) while space complexity is O(1)
+https://leetcode.com/problems/find-the-duplicate-number/
+https://youtu.be/wjYnzkAhcNk?si=nBLqkw5aUHEB9dop
+
+Time Complexity: O(n) where n = length of input array. 
+
+Space Complexity: O(1)
 */
 
 class Solution {
     public int findDuplicate(int[] nums) {
-        
-        // If nums only 0 or 1 element, exit loop
-        if (nums.length <= 1) {return nums[0];}
-        
-        // Create 2 variables as tortoise and hare
-        // NOTE: Think of this as the starting line
-        int tortoise = nums[0];
-        int hare = nums[0];
-        
-        // Traverse array until both animals intersect
+
+        // Create 2 pointers
+        int tortoise = 0;
+        int hare = 0;
+
+        // Iterate array until both pointers meet
+        // Note: Problem statement guarantees that there is a cycle inside the array
         while (true) {
-            
-            // Move animals
             tortoise = nums[tortoise];
             hare = nums[nums[hare]];
-            
-            // If both animals intersect, exit loop
-            if (tortoise == hare) {break;}
+
+            if (tortoise == hare) {
+                break;
+            }
         }
-        
-        // Move tortoise back to the front of array
-        tortoise = nums[0];
-        
-        // Traverse array again until beginning of cycle is reached
+
+        // Reset hare and iterate array until both pointers meet again
+        // NOTE: The index they will meet again is the duplicate number
+        hare = 0;
         while (tortoise != hare) {
-            
-            // Move both animals 1 element at a time
             tortoise = nums[tortoise];
-            hare = nums[hare]; // <= Hare is stuck in a cycle, so it will be moving in circles
+            hare = nums[hare];
         }
-        
-        // Return either animals since both will meet at the beginning of the cycle
-        return tortoise;
+
+        return hare;
     }
 }
