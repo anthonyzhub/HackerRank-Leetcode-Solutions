@@ -1,125 +1,136 @@
-// https://leetcode.com/problems/lru-cache/
-// https://youtu.be/7ABFKPK2hD4?si=54mIuEyLdwju4-6l
+/* 
+https://leetcode.com/problems/lru-cache/
+https://youtu.be/7ABFKPK2hD4?si=54mIuEyLdwju4-6l
 
-class CustomNode {
+Thought Process
+- Create a node class that has value, prevNode, and rightNode pointers
+- Create a linked list class that manages all the nodes
+    - Linked list should be a doubly linked list to keep track of head and tail nodes
+    - When adding a new element, create a new node, insert it at the beginning of the list, and return the new node
+    - For every node that is interacted with, move that node to the beginning of the list
+    - If linked list's size exceeds original capacity, drop last node
+- In LRUCache, initialize hash map and linked list
+- Hash map will keep track of number and node (key = number, value = node)
+- For every insert, check if capacity hasn't been met yet. If linked list size exceeds, remove lru node then add new node. If key exist, simply update node.
+- For every get, check if key exist. If it does, return its value. If not, return -1 
+*/
+
+class Node {
     int key;
-    int val;
-    CustomNode next;
-    CustomNode prev;
+    int value;
+    Node next;
+    Node prev;
+}
 
-    public CustomNode(){}
+class DoublyLinkedList {
+    Node head;
+    Node tail;
+    
+    public DoublyLinkedList() {
+        this.head = new Node();
+        this.tail = new Node();
 
-    public CustomNode(int key, int value) {
-        this.key = key;
-        this.val = value;
+        head.next = tail;
+        tail.prev = head;
     }
 
-    public CustomNode(CustomNode oldNode) {
-        this.key = oldNode.key;
-        this.val = oldNode.val;
+    public Node add(int key, int value) {
+        // Create a new node
+        Node newNode = new Node();
+        newNode.key = key;
+        newNode.value = value;
+
+        // Insert newNode between head and 2nd node in linked list
+        newNode.next = head.next;
+        head.next.prev = newNode;
+
+        head.next = newNode;
+        newNode.prev = head;
+
+        // Return newNode to add it to map
+        return newNode;
+    }
+
+    public void moveToFront(Node curNode) {
+
+        // Disconnect current neighbors from curNode
+        Node leftNode = curNode.prev;
+        Node rightNode = curNode.next;
+
+        leftNode.next = rightNode;
+        rightNode.prev = leftNode;
+
+        // Insert curNode between head and 2nd node in list
+        curNode.next = head.next;
+        head.next.prev = curNode;
+
+        head.next = curNode;
+        curNode.prev = head;
+    }
+
+    public Node dropLastNode() {
+        // NOTE: Validation is always being done in LRUCache class, so we don't need to worry about tail.prev.prev throwing a Null Exception
+        Node nodeToDelete = tail.prev;
+        Node secondToLastNode = tail.prev.prev;
+
+        secondToLastNode.next = tail;
+        tail.prev = secondToLastNode;
+
+        return nodeToDelete;
     }
 }
 
 class LRUCache {
 
-    int curCapacity;
-    int maxCapacity;
-    CustomNode headNode;
-    CustomNode tailNode;
-    Map<Integer, CustomNode> nodeMap;
+    int capacity;
+    Map<Integer, Node> nodeMap;
+    DoublyLinkedList linkedList;
 
     public LRUCache(int capacity) {
-        this.curCapacity = 0;
-        this.maxCapacity = capacity;
-        this.nodeMap = new HashMap<>();
-        this.headNode = new CustomNode();
-        this.tailNode = new CustomNode();
-
-        headNode.next = tailNode;
-        tailNode.prev = headNode;
+        this.capacity = capacity;
+        nodeMap = new HashMap<>();
+        linkedList = new DoublyLinkedList();
     }
-
-    private void insert(CustomNode newNode) {
-        /*
-        Time Complexity: O(1) because I'm not iterating through the linked list
-        Space Complexity: O(1) because I'm only creating 1 node
-        */
-        CustomNode preNode = tailNode.prev;
-
-        preNode.next = newNode;
-
-        newNode.prev = preNode;
-        newNode.next = tailNode;
-        
-        tailNode.prev = newNode;
-    }
-
-    private void remove(CustomNode targetNode) {
-        /*
-        Time Complexity: O(1) because I'm not iterating through the linked list
-        Space Complexity: O(1)? I'm not creating a new object and I don't know if 0 is a possible answer. Maybe the call is O(1)?
-        */
-        CustomNode preNode = targetNode.prev;
-        CustomNode nextNode = targetNode.next;
-
-        preNode.next = nextNode;
-        nextNode.prev = preNode;
-    }
-
+    
     public int get(int key) {
+        /*
+        - If key doesn't exist, return -1
+        - If key does exist, return the associated node's value
+        */
 
-        // IMPORTANT: If a node exist, we're simply deleting the existing one and inserting its replacement on the far left where the most recently used node is used.
         if (nodeMap.containsKey(key)) {
-            remove(nodeMap.get(key));
+            Node existingNode = nodeMap.get(key);
+            linkedList.moveToFront(existingNode);
+            return existingNode.value;
         }
-        else {
-            return -1;
-        }
 
-        CustomNode newNode = new CustomNode();
-        newNode.key = key;
-        newNode.val = nodeMap.get(key).val;
-
-        nodeMap.put(key, newNode);
-        insert(newNode);
-
-        return newNode.val;
+        return -1;
     }
     
     public void put(int key, int value) {
+        /*
+        - If key doesn't exist, check if linked list exceeds capacity
+        - If linked list exceeds capacity, immediately drop last node. If not, add new node to map and linked list
+        - If key does exist, update its value and move node to front of linked list
+        */
 
-        // If key exist, replace existing node and exit function
-        if (nodeMap.containsKey(key)) {
+        if (!nodeMap.containsKey(key)) {
+            if (capacity == 0) {
+                Node oldNode = linkedList.dropLastNode();
+                nodeMap.remove(oldNode.key); // IMPORTANT: We still need the least recently used key to remove it from map
+                capacity++;
+            }
 
-            // Remove node from map and linked list
-            remove(nodeMap.get(key));
-            nodeMap.remove(key);
-
-            // Create a new node of the same key and different value
-            CustomNode newNode = new CustomNode();
-            newNode.key = key;
-            newNode.val = value;
-
-            // Add new node to linked list and map
-            insert(newNode);
+            Node newNode = linkedList.add(key, value);
             nodeMap.put(key, newNode);
-            return;
-        }
+            capacity--;
+        } else {
+            Node existingNode = nodeMap.get(key);
+            existingNode.value = value;
 
-        // If cache is at max capacity, remove least recently used (lru) node
-        // IMPORTANT: Remember that the linked list is holding a list of nodes. From left to right, it's from least used to recently used
-        if (curCapacity == maxCapacity) {
-            CustomNode lruNode = headNode.next;
-            remove(lruNode);
-            nodeMap.remove(lruNode.key);
-            curCapacity--;
+            nodeMap.put(key, existingNode);
+            linkedList.moveToFront(existingNode);
         }
-
-        // Add new node to linked list
-        CustomNode newNode = new CustomNode(key, value);
-        nodeMap.put(key, newNode);
-        insert(newNode);
-        curCapacity++;
     }
 }
 
