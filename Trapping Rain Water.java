@@ -80,6 +80,13 @@ class Solution {
         // Create an array where it inserts the largest number from one side
         // E.g., from left to right, insert the largest number from 0 to ith index to new array.
         //      Continue to do this until you reach the end of the input array. Repeat for other side.
+        /*
+        IMPORTANT: I think looking at the example diagram while reading this will help. Pick 3 buckets for left pointer, 
+        right pointer, and where the water will fall (middle pointer). Imagine infinite amount of water falls onto the middle pointer
+        and the excess water is spilling to the neighborhing buckets between left and right pointers. How much water will hold 
+        between the left and right pointer? You can't hold negative water, which is why we default to 0, and we want ignore the 
+        block in the middle pointer.
+        */
         int[] maxNumbersFromLeftSide = getMaximumNumberFromLeftSide(height);
         int[] maxNumbersFromRightSide = getMaximumNumberFromRightSide(height);
         
